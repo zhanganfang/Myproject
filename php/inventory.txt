@@ -1,0 +1,5 @@
+{"id":1,"name":"carp","type":"marine products","unit_price":"5","inventory":"100","creat_time":"2020-09-10"}
+{"id":2,"name":"pork","type":"meat ","unit_price":"3","inventory":"100","creat_time":"2020-09-10"}
+{"id":3,"name":"celery","type":"vegetables ","unit_price":"13","inventory":"100","creat_time":"2020-09-10"}
+{"id":4,"name":"crab","type":"marine products","unit_price":"20","inventory":"100","creat_time":"2020-09-10"}
+{"id":5,"name":"Chinese cabbage","type":"vegetables ","unit_price":"3","inventory":"100","creat_time":"2020-09-10"}

@@ -1,0 +1,6 @@
+{"id":1,"p_id":"1","inventoryNum":"40","today_sale":60,"creat_time":"2020-09-10"}
+{"id":2,"p_id":"2","inventoryNum":"80","today_sale":20,"creat_time":"2020-09-10"}
+{"id":3,"p_id":"3","inventoryNum":"30","today_sale":70,"creat_time":"2020-09-10"}
+{"id":4,"p_id":"4","inventoryNum":"50","today_sale":50,"creat_time":"2020-09-10"}
+{"id":5,"p_id":"5","inventoryNum":"15","today_sale":85,"creat_time":"2020-09-10"}
+{"id":6,"p_id":"6","inventoryNum":"28","today_sale":72,"creat_time":"2020-09-10"}

@@ -1,0 +1,10 @@
+{"id":1,"cost":500,"income":1500,"profit":1000,"create_time":"2020-09-10"}
+{"id":2,"cost":300,"income":800,"profit":500,"create_time":"2020-09-09"}
+{"id":3,"cost":700,"income":1800,"profit":1100,"create_time":"2020-09-08"}
+{"id":4,"cost":550,"income":1500,"profit":950,"create_time":"2020-09-07"}
+{"id":5,"cost":300,"income":1500,"profit":1200,"create_time":"2020-09-06"}
+{"id":6,"cost":350,"income":1500,"profit":1150,"create_time":"2020-09-05"}
+{"id":7,"cost":400,"income":1500,"profit":1000,"create_time":"2020-09-04"}
+{"id":8,"cost":600,"income":1500,"profit":900,"create_time":"2020-09-03"}
+{"id":9,"cost":330,"income":1500,"profit":1170,"create_time":"2020-09-02"}
+{"id":10,"cost":230,"income":1200,"profit":970,"create_time":"2020-09-01"}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+  <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .left{
+            width: 200px;
+            height: 100%;
+            /*background: red;*/
+            position: absolute;
+        }
+        .right{
+            height: 100%;
+            margin-left: 200px;
+            /*background: blue;*/
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-side layui-bg-black left" style="height:100%">
+  <div class="layui-side-scroll">
+    <div title="The zoom menu" class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
+
+    <ul class="layui-nav layui-nav-tree" lay-filter="test">
+      <li class="layui-nav-item layui-nav-itemed">
+        <a class="" href="javascript:;" rel="external nofollow" ><i class="fa fa-user-circle-o fa-lg"></i> <span >back-stage management</span></a>
+        <dl class="layui-nav-child">
+          <dd><a href="http://127.0.0.1/xm_new/web/inventory.html" rel="external nofollow"  ><i class="fa fa-list fa-lg "></i> <span >Goods List</span></a></dd>
+        </dl>
+        <dl class="layui-nav-child">
+          <dd><a href="http://127.0.0.1/xm_new/web/turnover.html" rel="external nofollow"  ><i class="fa fa-list fa-lg"></i> <span >Expense</span></a></dd>
+        </dl>
+        <dl class="layui-nav-child">
+          <dd><a href="http://127.0.0.1/xm_new/web/summarize.html" rel="external nofollow"  ><i class="fa fa-list fa-lg"></i> <span >Summarize</span></a></dd>
+        </dl>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="right">
+  <div align="center">
+    <br>
+      <h2>油物Warehouse management system</h2>
+    <br>
+</div>
+
+
+<div>
+  <form class="layui-form" action="javascript:;">
+    <input type="text" name="name"   placeholder="Please enter the name of the item"  class="layui-input" style="width:300px;display:inline">
+    <button style="" class="layui-btn" lay-submit lay-filter="formDemo">seek</button>
+  </form>
+</div>
+
+
+<table class="layui-hide" lay-filter="demo" id="test"></table>
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">Check inventory</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">Update</a>
+</script>     
+</div>
+<script src="./layui/layui.js" charset="utf-8"></script>
+<script>
+  layui.use('table', function(){
+    var table = layui.table;
+    var $ = layui.$;
+    var layer = layui.layer;
+    var isShow = true; 
+    var form = layui.form;
+    
+    table.render({
+      elem: '#test'
+      ,url:'http://127.0.0.1/xm_new/php/inventory.php'
+      ,cols: [[
+        {field:'id',  title: 'ID', sort: true}
+        ,{field:'name',  title: 'Name'}
+        ,{field:'type', title: 'Type'}
+        ,{field:'unit_price', title: 'unit price'}
+        ,{field:'inventory', title: 'Inventory'}
+        ,{field:'create_time',  title: 'CreateTime',templet:"<div>{{layui.util.toDateString(d.create_time, 'yyyy-MM-dd HH:mm:ss')}}</div>"}
+        ,{fixed: 'right',title: 'Operation',width: 200, align:'center', toolbar: '#barDemo'}
+      ]]
+      ,page: true
+      ,limit:5
+      ,limits:[5]
+    });
+    //Monitor toolbar
+    table.on('tool(demo)', function(obj){
+      var data = obj.data;
+      if(obj.event === 'edit'){
+        $.ajax({
+          type: "get",
+          url: "http://127.0.0.1/xm_new/php/InventoryInfo.php",
+          data: {
+            id:data.id
+          },
+          success: function (res) {
+              layer.alert(res)
+          }
+        });
+      }
+      else if(obj.event === 'del'){
+        window.location.href="./update.php?id="+data.id;
+      } 
+    });
+    
+
+    $('.kit-side-fold').click(function(){
+    //Select all spans and determine if they are hidden
+    $('.layui-nav-item span').each(function(){
+      if($(this).is(':hidden')){
+        $(this).show();
+      }else{
+        $(this).hide();
+      }
+    });
+    //Determine the status of isShow
+    if(isShow){
+      $('.layui-side.layui-bg-black').width(60); //Set the width
+      $('.kit-side-fold i').css('margin-right', '70%'); //Change the position of the icon
+      //Change the width of the footer and body
+      $('.layui-body').css('left', 60+'px');
+      $('.layui-footer').css('left', 60+'px');
+      //Hide the secondary navigation bar
+      $('dd span').each(function(){
+        $(this).hide();
+      });
+      //Modify flag bit
+      isShow =false;
+    }else{
+      $('.layui-side.layui-bg-black').width(200);
+      $('.kit-side-fold i').css('margin-right', '10%');
+      $('.layui-body').css('left', 200+'px');
+      $('.layui-footer').css('left', 200+'px');
+      $('dd span').each(function(){
+        $(this).show();
+      });
+      isShow =true;
+    }
+  });
+
+    //Listening to submit
+    form.on('submit(formDemo)', function(data){
+      table.reload('test', {
+            method: 'get'
+            , where: {
+                name: data.field['name'] // 添加查询的参数
+            }
+            , page: {
+                curr: 1 // 重载后从第一页开始
+            }
+        });
+        return false;  // 阻止submit的表单提交
+    });
+    $('#layerDemo .layui-btn').on('click', function(){
+      var othis = $(this), method = othis.data('method');
+      active[method] ? active[method].call(this, othis) : '';
+    });
+  });
+</script>
+
+</body>
+</html>
